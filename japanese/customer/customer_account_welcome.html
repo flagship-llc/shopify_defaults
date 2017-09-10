@@ -1,5 +1,5 @@
-{% capture email_title %}Welcome to {{ shop.name }}! {% endcapture %}
-{% capture email_body %}You've activated your customer account. Next time you shop with us, log in for faster checkout.{% endcapture %}
+{% capture email_title %} {{ shop.name }}へようこそ! {% endcapture %}
+{% capture email_body %}アカウント登録していただき誠にありがとうございます。お買い物される際はログインをすることで受注を簡単にしていただけます。{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -67,7 +67,7 @@
                   <td class="actions__cell">
                     <table class="button main-action-cell">
                       <tr>
-                        <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+                        <td class="button__cell"><a href="{{ shop.url }}" class="button__text">ストアを見る</a></td>
                       </tr>
                     </table>
                   </td>
@@ -89,7 +89,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

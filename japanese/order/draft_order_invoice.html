@@ -1,5 +1,5 @@
-{% capture email_title %}Complete your purchase{% endcapture %}
-{% capture email_body %}{% if item_count > 1 %}These items{% else %}This item{% endif %} will be reserved for you until: <strong>{{ reserve_inventory_until | date: "%B %d, %Y at %I:%M %p %Z" }}</strong>{% endcapture %}
+{% capture email_title %}購入手続きを完了する{% endcapture %}
+{% capture email_body %}{% if item_count > 1 %}これらの商品は{% else %}この商品は{% endif %}左記日程まで一時保管されます： <strong>{{ reserve_inventory_until | date: "%Y年%m月%d日 %H:%M" }}</strong>{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -41,7 +41,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        Invoice {{ name }}
+                        請求先 {{ name }}
                       </span>
                     </td>
                 </tr>
@@ -75,13 +75,13 @@
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ invoice_url }}" class="button__text">Complete your purchase</a></td>
+          <td class="button__cell"><a href="{{ invoice_url }}" class="button__text">購入手続きを完了する</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -106,7 +106,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Order summary</h3>
+              <h3>ご注文内容</h3>
             </td>
           </tr>
         </table>
@@ -161,7 +161,7 @@
     <td>
       <table class="row subtotal-table">
         {% if discounts %}
-          {% capture discount_title %}Discount {% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
+          {% capture discount_title %}割引{% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
           
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
@@ -180,7 +180,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Subtotal</span>
+      <span>小計</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -192,7 +192,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Shipping</span>
+      <span>送料</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -221,7 +221,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Total</span>
+      <span>合計</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -275,7 +275,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Refund</span>
+      <span>返金</span>
         <br>
         <small>{{ refund_method_title | capitalize }}</small>
     </p>
@@ -310,7 +310,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Customer information</h3>
+              <h3>顧客情報</h3>
             </td>
           </tr>
         </table>
@@ -322,33 +322,15 @@
                 <tr>
                   {% if shipping_address %}
                     <td class="customer-info__item">
-                      <h4>Shipping address</h4>
-                      <p>
-  {{ shipping_address.name }}<br/>
-  {{ shipping_address.address1 }}
-  {% if shipping_address.address2 %}
-  <br/>{{ shipping_address.address2 }}
-  {% endif %}
-  <br/>{{ shipping_address.city }}, {{ shipping_address.province }} {{ shipping_address.zip }}
-  <br/>{{ shipping_address.country }}
-</p>
-
+                      <h4>配送先住所</h4>
+                      {{ shipping_address | format_address }}
                     </td>
                   {% endif %}
 
                   {% if billing_address %}
                     <td class="customer-info__item">
-                      <h4>Billing address</h4>
-                      <p>
-  {{ billing_address.name }}<br/>
-  {{ billing_address.address1 }}
-  {% if billing_address.address2 %}
-  <br/>{{ billing_address.address2 }}
-  {% endif %}
-  <br/>{{ billing_address.city }}, {{ billing_address.province }} {{ billing_address.zip }}
-  <br/>{{ billing_address.country }}
-</p>
-
+                      <h4>領収書住所</h4>
+                      {{ billing_address | format_address }}
                     </td>
                   {% endif %}
                 </tr>
@@ -357,7 +339,7 @@
                 <table class="row">
                   <tr>
                     <td class="customer-info__item customer-info__item--last">
-                      <h4>Shipping method</h4>
+                      <h4>配送手段</h4>
                       <p>{{ shipping_method.title }}<br/>{{ shipping_method.price | money }}</p>
                     </td>
                   </tr>
@@ -380,7 +362,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

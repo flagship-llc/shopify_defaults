@@ -7,61 +7,61 @@
 ## Order（注文関係のお客様向けメール） 
 
 1. Order confirmation 
-ご注文ありがとうございます（{{name}}）| {{ shop.name }}
+{{name}} ご注文完了
 
 2. Order canceled 
-Order {{ name }} has been canceled 
+{{ name }} ご注文がキャンセルされました
 
 3. Order refund 
-Refund notification 
+返金処理手続き完了のお知らせ
 
 4. Draft order invoice 
-Invoice {{name}} 
+{{ name }} ご注文内容
 
 5. Abandoned checkout 
-Complete your Purchase 
+購入手続きを完了する
 
 6. Gift card created 
-Your {{ shop.name }} gift card is ready! 
+{{ shop.name }}のギフトカード
 
 
 ## Shipping（配送関係のお客様向けメール） 
 
-7. Fulfillment request 
+7. Fulfillment request（未翻訳） 
 Order fulfillment request for {{ shop_name }} 
 
 8. Shipping confirmation 
-A shipment from order {{ name }} is on the way 
+{{ name }} 配送のお知らせ
 
 9. Shipping Update 
-Shipping update for order {{ name }} 
+{{ name }} 配送のお知らせ
 
-10. Shipment out for delivery 
+10. Shipment out for delivery（未翻訳）
 A shipment from order {{ name }} is out for delivery 
 
-11. Shipment delivered 
+11. Shipment delivered（未翻訳）
 A shipment from order {{ name }} has been delivered 
 
 
 ## Customer（ユーザーアカウント関係のお客様向けメール） 
 
 12. Customer account invite 
-Customer account activation 
+アカウント登録のご連絡
 
 13. Customer account welcome 
-Customer account confirmation 
+お客様情報の確認
 
 14. Customer account password reset 
-Customer account password reset 
+パスワード再登録のご連絡
 
 15. Contact customer 
-Message from {{ shop.name }} 
+{{ shop.name }}からお客様へ
 
 
 ## Order Notifications（運営者向け通知メール） 
 
-16. New order 
+16. New order（未翻訳）
 [{{shop_name}}] Order {{ name }} placed by {{ billing_address.name }}{% if has_high_risks? %} (Risk of fraud){% endif %} 
 
-17. New order (mobile) 
+17. New order (mobile)（未翻訳）
 Order {{ name }} 

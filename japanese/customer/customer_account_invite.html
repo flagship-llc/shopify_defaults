@@ -1,5 +1,5 @@
-{% capture email_title %} Activate your account {% endcapture %}
-{% capture email_body %}Hi {{ customer.first_name }}, you've created a new customer account at <a href="{{shop.url}}">{{shop.name}}</a>. All you have to do is activate it and choose a password. {% endcapture %}
+{% capture email_title %} アカウント登録を完了しましょう {% endcapture %}
+{% capture email_body %} {{ customer.last_name }}様, ご登録いただきありがとうございます。 <a href="{{shop.url}}">{{shop.name}}</a> のアカウント登録を完了するため、パスワードの設定を行ってください。 {% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -70,13 +70,13 @@
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ customer.account_activation_url }}" class="button__text">Activate your account</a></td>
+          <td class="button__cell"><a href="{{ customer.account_activation_url }}" class="button__text">アカウント登録を完了する</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -100,7 +100,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

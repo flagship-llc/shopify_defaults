@@ -1,13 +1,13 @@
-{% capture email_title %}この度はご注文ありがとうございました。 {% endcapture %}
+{% capture email_title %}ご注文ありがとうございます!{% endcapture %}
 {% capture email_body %}
   {% if requires_shipping %}
-    {{ customer.last_name }}{{ customer.first_name }}様、現在配送の手配中です。発送しましたらまた連絡いたします。
+   {{ customer.last_name }}様、商品が出荷された時点でお知らせメールをお送りします。
   {% endif %}
 {% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+<head>
   <title>{{ email_title }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width">
@@ -18,11 +18,11 @@
   </style>
 </head>
 
-  <body>
-    <table class="body">
-      <tr>
-        <td>
-          <table class="header row">
+<body>
+<table class="body">
+  <tr>
+    <td>
+      <table class="header row">
   <tr>
     <td class="header__cell">
       <center>
@@ -45,7 +45,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        注文番号：{{ order_name }}
+                        ご注文番号 {{ order_name }}
                       </span>
                     </td>
                 </tr>
@@ -60,7 +60,7 @@
   </tr>
 </table>
 
-          <table class="row content">
+      <table class="row content">
   <tr>
     <td class="content__cell">
       <center>
@@ -68,21 +68,21 @@
           <tr>
             <td>
               
-            <h2>{{ email_title }}</h2>
-            <p>{{ email_body }}</p>
-            {% if order_status_url %}
-              <table class="row actions">
+        <h2>{{ email_title }}</h2>
+        <p>{{ email_body }}</p>
+        {% if order_status_url %}
+          <table class="row actions">
   <tr>
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">ご注文内容を確認する</a></td>
+          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">ご注文内容の確認</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span> {{ shop.name }}へ</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -91,14 +91,14 @@
   </tr>
 </table>
 
-            {% else %}
-              {% if shop.url %}
+        {% else %}
+          {% if shop.url %}
     <table class="row actions">
       <tr>
         <td class="actions__cell">
           <table class="button main-action-cell">
             <tr>
-              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">{{ shop.name }}へ</a></td>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">ご注文内容の確認</a></td>
             </tr>
           </table>
         </td>
@@ -106,7 +106,7 @@
     </table>
 {% endif %}
 
-            {% endif %}
+        {% endif %}
 
             </td>
           </tr>
@@ -116,7 +116,7 @@
   </tr>
 </table>
 
-          <table class="row section">
+      <table class="row section">
   <tr>
     <td class="section__cell">
       <center>
@@ -131,7 +131,7 @@
           <tr>
             <td>
               
-            
+        
 <table class="row">
   {% for line in line_items %}
   <tr class="order-list__item">
@@ -172,13 +172,13 @@
   </tr>{% endfor %}
 </table>
 
-            <table class="row subtotal-lines">
+        <table class="row subtotal-lines">
   <tr>
     <td class="subtotal-spacer"></td>
     <td>
       <table class="row subtotal-table">
         {% if discounts %}
-          {% capture discount_title %}Discount {% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
+          {% capture discount_title %}割引{% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
           
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
@@ -209,7 +209,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>配送料</span>
+      <span>送料</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -319,14 +319,14 @@
   </tr>
 </table>
 
-          <table class="row section">
+      <table class="row section">
   <tr>
     <td class="section__cell">
       <center>
         <table class="container">
           <tr>
             <td>
-              <h3>お客様情報</h3>
+              <h3>顧客情報</h3>
             </td>
           </tr>
         </table>
@@ -334,61 +334,53 @@
           <tr>
             <td>
               
-            <table class="row">
-              <tr>
-                {% if requires_shipping and shipping_address %}
-                <td class="customer-info__item">
-                  <h4>お届け先</h4>
-                  <p>
-                  〒{{ shipping_address.zip }} {{ shipping_address.province }} {{ shipping_address.city }}<br />
-                  {{ shipping_address.address1 }}{% if shipping_address.address2 %} {{ shipping_address.address2 }}{% endif %}<br />
-                  {{ shipping_address.name }}
-                  </p>
-                </td>
+        <table class="row">
+          <tr>
+            {% if requires_shipping and shipping_address %}
+            <td class="customer-info__item">
+              <h4>配送先住所</h4>
+              {{ shipping_address | format_address }}
+            </td>
+            {% endif %}
+            {% if billing_address %}
+            <td class="customer-info__item">
+              <h4>領収書住所</h4>
+              {{ billing_address | format_address }}
+            </td>
+            {% endif %}
+          </tr>
+        </table>
+        <table class="row">
+          <tr>
+            {% if requires_shipping and shipping_address %}
+            <td class="customer-info__item">
+              <h4>配送手段</h4>
+              <p>{{ shipping_method.title }}</p>
+            </td>
+            {% endif %}
+            {% assign transaction_count = transactions | size %}
+            {% if transaction_count > 0 %}
+            <td class="customer-info__item">
+              <h4>お支払い方法</h4>
+              {% for transaction in transactions %}
+              {% if transaction.status == "success" or transaction.status == "pending" %}
+              {% if transaction.kind == "authorization" or transaction.kind == "sale" %}
+              <p class="customer-info__item-content">
+                {% if transaction.payment_details.credit_card_company %}
+                {% capture credit_card_url %}notifications/{{ transaction.payment_details.credit_card_company | downcase | replace: " ", "_" }}.png{% endcapture %}
+                <img src="{{ credit_card_url | shopify_asset_url }}" class="customer-info__item-credit" height="24">
+                <span>下４ケタ {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ total_price | money }}</strong></span>
+                {% else %}
+                {{ transaction.gateway | replace: "_", " " | capitalize }} — <strong>{{ transaction.amount | money }}</strong>
                 {% endif %}
-                {% if billing_address %}
-                <td class="customer-info__item">
-                  <h4>請求先住所</h4>
-                  <p>
-                  〒{{ billing_address.zip }} {{ billing_address.province }} {{ billing_address.city }}<br />
-                  {{ billing_address.address1 }}{% if billing_address.address2 %} {{ billing_address.address2 }}{% endif %}<br />
-                  {{ billing_address.name }}
-                  </p>
-                </td>
-                {% endif %}
-              </tr>
-            </table>
-            <table class="row">
-              <tr>
-                {% if requires_shipping and shipping_address %}
-                <td class="customer-info__item">
-                  <h4>配送方法</h4>
-                  <p>{{ shipping_method.title }}</p>
-                </td>
-                {% endif %}
-                {% assign transaction_count = transactions | size %}
-                {% if transaction_count > 0 %}
-                <td class="customer-info__item">
-                  <h4>支払い</h4>
-                  {% for transaction in transactions %}
-                    {% if transaction.status == "success" or transaction.status == "pending" %}
-                      {% if transaction.kind == "authorization" or transaction.kind == "sale" %}
-                        <p class="customer-info__item-content">
-                          {% if transaction.payment_details.credit_card_company %}
-                            {% capture credit_card_url %}notifications/{{ transaction.payment_details.credit_card_company | downcase | replace: " ", "_" }}.png{% endcapture %}
-                            <img src="{{ credit_card_url | shopify_asset_url }}" class="customer-info__item-credit" height="24">
-                            <span>Ending in {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ total_price | money }}</strong></span>
-                          {% else %}
-                            {{ transaction.gateway | replace: "_", " " | capitalize }} — <strong>{{ transaction.amount | money }}</strong>
-                          {% endif %}
-                        </p>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                </td>
-                {% endif %}
-              </tr>
-            </table>
+              </p>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </td>
+            {% endif %}
+          </tr>
+        </table>
 
             </td>
           </tr>
@@ -398,14 +390,14 @@
   </tr>
 </table>
 
-          <table class="row footer">
+      <table class="row footer">
   <tr>
     <td class="footer__cell">
       <center>
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">ご質問やご不明の点などございましたら、<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>までお問い合わせください。</p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>
@@ -416,8 +408,8 @@
 
 <img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
 
-        </td>
-      </tr>
-    </table>
-  </body>
+    </td>
+  </tr>
+</table>
+</body>
 </html>

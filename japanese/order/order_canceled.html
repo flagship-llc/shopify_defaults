@@ -1,23 +1,20 @@
-{% capture email_title %}Your order has been canceled{% endcapture %}
+{% capture email_title %}ご注文がキャンセルされました{% endcapture %}
 {% capture email_body %}
-  Order {{ name }} was canceled
+  {{ name }}のご注文がキャンセルされました。
   {% case cancel_reason %}
-  {% when 'customer' %}
-    at your request
   {% when 'inventory' %}
-    because we did not have enough stock to fulfill your order
+   ご注文いただいた商品の在庫が現在0の状態であるため。
   {% when 'fraud' %}
-    because we suspect it is fraudulent
+    不正の手続きの可能性があるため
   {% when 'other' %}
-    due to unforeseen circumstances
+    無効な環境化での手続きだったため
   {% endcase %}
 
   {% if financial_status == 'voided' %}
-    and your payment has been voided
+    お支払いは無効となっております。
   {% elsif financial_status == 'refunded' %}
-    and your payment has been refunded
+     返金させていただきました。
   {% endif %}
-  .
 {% endcapture %}
 
 <!DOCTYPE html>
@@ -60,7 +57,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        Order {{ order_name }}
+                        ご注文番号 {{ order_name }}
                       </span>
                     </td>
                 </tr>
@@ -101,7 +98,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Refunded items</h3>
+              <h3>返金されたアイテム</h3>
             </td>
           </tr>
         </table>
@@ -156,7 +153,7 @@
     <td>
       <table class="row subtotal-table">
         {% if discounts %}
-          {% capture discount_title %}Discount {% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
+          {% capture discount_title %}割引{% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
           
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
@@ -175,7 +172,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Subtotal</span>
+      <span>小計</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -187,7 +184,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Shipping</span>
+      <span>送料</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -216,7 +213,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Total</span>
+      <span>合計</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -270,7 +267,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Refund</span>
+      <span>返金</span>
         <br>
         <small>{{ refund_method_title | capitalize }}</small>
     </p>
@@ -304,7 +301,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

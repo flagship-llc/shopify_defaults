@@ -1,22 +1,12 @@
-{% if fulfillment.item_count == item_count %} 
-  {% capture shipment_name %}Your order is{% endcapture %}
-{% elsif fulfillment.item_count > 1 %} 
-  {% if fulfillment_status == 'fulfilled' %}
-    {% capture shipment_name %}The last items in your order are{% endcapture %}
-  {% else %}
-    {% capture shipment_name %}Some items in your order are{% endcapture %}
-  {% endif %}
-{% else %} 
-  {% if fulfillment_status == 'fulfilled' %}
-    {% capture shipment_name %}The last item in your order is{% endcapture %}
-  {% else %}
-    {% capture shipment_name %}One item in your order is{% endcapture %}
-  {% endif %}
+{% if fulfillment.item_count == item_count %}
+  {% capture shipment_name %}あなたのご注文は{% endcapture %}
+{% else %}
+  {% capture shipment_name %}あなたのご注文されたアイテムは{% endcapture %}
 {% endif %}
 
-{% capture email_title %}{{ shipment_name }} on the way{% endcapture %}
-{% capture email_body %}{{ shipment_name }} on the way to you. Track your shipment to see the delivery status.{% endcapture %}
-{% capture email_emphasis %}Estimated delivery date: <strong>{{fulfillment.estimated_delivery_at | date: "%B %d, %Y"}}</strong>{% endcapture %}
+{% capture email_title %}{{ shipment_name }}は配送中です{% endcapture %}
+{% capture email_body %}{{ shipment_name }}は配送中です｡トラッキングナンバーを使用し、配達状況をご確認いただけます｡{% endcapture %}
+{% capture email_emphasis %}配達完了予定日 <strong>{{fulfillment.estimated_delivery_at | date: "%B %d, %Y"}}</strong>{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -59,7 +49,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        Order {{ order_name }}
+                        ご注文番号 {{ order_name }}
                       </span>
                     </td>
                 </tr>
@@ -93,13 +83,13 @@
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">View your order</a></td>
+          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">ご注文を見る</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -115,7 +105,7 @@
         <td class="actions__cell">
           <table class="button main-action-cell">
             <tr>
-              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">ご注文内容の確認</a></td>
             </tr>
           </table>
         </td>
@@ -140,7 +130,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Items in this shipment</h3>
+              <h3>配送中のアイテム</h3>
             </td>
           </tr>
         </table>
@@ -199,7 +189,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

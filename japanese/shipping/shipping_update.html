@@ -1,5 +1,5 @@
-{% capture email_title %}Your shipping status has been updated {% endcapture %}
-{% capture email_body %}The following items have been updated with new shipping information.{% endcapture %}
+{% capture email_title %}配送状況が更新されました{% endcapture %}
+{% capture email_body %}以下の商品は新しい配送情報に更新されています。{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -41,7 +41,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        Order {{ order_name }}
+                        ご注文番号 {{ order_name }}
                       </span>
                     </td>
                 </tr>
@@ -73,13 +73,13 @@
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">View your order</a></td>
+          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">ご注文を見る</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -95,7 +95,7 @@
         <td class="actions__cell">
           <table class="button main-action-cell">
             <tr>
-              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">ご注文内容の確認</a></td>
             </tr>
           </table>
         </td>
@@ -120,7 +120,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Items in this shipment</h3>
+              <h3>配送中のアイテム</h3>
             </td>
           </tr>
         </table>
@@ -179,7 +179,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

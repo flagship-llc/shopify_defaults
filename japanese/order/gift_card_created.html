@@ -1,5 +1,5 @@
-{% capture email_title %}Your gift card is now available! {% endcapture %}
-{% capture email_body %}Hi{% if gift_card.customer %} {{ gift_card.customer.first_name }}{% endif %}, here is your {{ gift_card.balance | money_without_trailing_zeros }} gift card. Treat yourself, or send it to someone else as a gift.{% endcapture %}
+{% capture email_title %}ギフトカードをお届けします！ {% endcapture %}
+{% capture email_body %}{% if gift_card.customer %}{{ gift_card.customer.last_name }}様、{% endif %}{{ gift_card.balance | money_without_trailing_zeros }}分のギフトカードです。是非お買い物を楽しんでくださいませ。{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -66,13 +66,13 @@
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ gift_card.url }}" class="button__text">View your gift card</a></td>
+          <td class="button__cell"><a href="{{ gift_card.url }}" class="button__text">ギフトカードを見る</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -102,7 +102,7 @@
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>

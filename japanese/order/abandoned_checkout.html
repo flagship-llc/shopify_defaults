@@ -1,8 +1,8 @@
-{% capture email_title %} Your shopping cart is waiting for you {% endcapture %}
+{% capture email_title %} ご購入手続きを完了しましょう {% endcapture %}
 {% capture email_body %}
-{% if billing_address.first_name %}Hi {{ billing_address.first_name }}, w{% else %}
-W{% endif %}e noticed there {% if item_count == 1 %}was an item{% else %}were some items{% endif %} left in your shopping cart.
-If you're ready to complete your order, your cart is waiting for your return.
+{% if billing_address.last_name %}{{ billing_address.last_name }}様、 <br/>{% endif %}
+お客様のお買い物カゴの中に商品が残っているようです｡ <br/>
+購入手続きを完了させてください｡
 {% endcapture %}
 
 <!DOCTYPE html>
@@ -74,13 +74,13 @@ If you're ready to complete your order, your cart is waiting for your return.
     <td class="actions__cell">
       <table class="button main-action-cell">
         <tr>
-          <td class="button__cell"><a href="{{ url }}" class="button__text">Complete your purchase</a></td>
+          <td class="button__cell"><a href="{{ url }}" class="button__text">購入手続きを完了する</a></td>
         </tr>
       </table>
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>または</span>ストアを見る</a></td>
       </tr>
     </table>
 {% endif %}
@@ -105,7 +105,7 @@ If you're ready to complete your order, your cart is waiting for your return.
         <table class="container">
           <tr>
             <td>
-              <h3>Items in your cart</h3>
+              <h3>買い物かごの中のアイテム</h3>
             </td>
           </tr>
         </table>
@@ -164,7 +164,7 @@ If you're ready to complete your order, your cart is waiting for your return.
         <table class="container">
           <tr>
             <td>
-              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              <p class="disclaimer__subtext">ご不明な点がある場合は、こちらのメールへ返信するか<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>へご連絡ください</p>
             </td>
           </tr>
         </table>
